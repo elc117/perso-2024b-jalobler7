@@ -1,4 +1,5 @@
 import System.Random (randomRIO)
+import System.IO (hFlush, stdout)
 	
 
 montyHall :: Bool -> IO Bool
@@ -6,10 +7,8 @@ montyHall troca = do
     -- Escolhe aleatoriamente a porta correta
     premio <- randomRIO (1, 3) :: IO Int
     
-    -- Jogador faz a primeira escolha
     escolhaJogador <- randomRIO (1, 3) :: IO Int
     
-    -- Se o jogador trocar de porta
     let ganhou = if troca
                     then escolhaJogador /= premio  -- Se trocar, ganha se a escolha inicial não for a do prêmio
                     else escolhaJogador == premio  -- Se não trocar, ganha se a escolha inicial for a do prêmio
@@ -38,18 +37,27 @@ contarVitorias n troca = do
     resto <- contarVitorias (n - 1) troca
     return ((if resultado then 1 else 0) + resto)
 
-
-
--- Função que executa o loop principal
-mainLoop :: IO ()
-mainLoop = do
-    putStrLn "Quantas rodadas deseja simular? (Digite 0 para sair)"
-    n <- readLn :: IO Int
-    if n == 0
-        then putStrLn "Encerrando a simulação. Até mais!"
-        else do
+--função para executar o menu
+menu :: IO ()
+menu = do
+    putStrLn "Escolha uma opção:"
+    putStrLn "1. Simular quantas rodadas quiser"
+    putStrLn "2. Jogar o jogo das 3 portas"
+    putStr "Digite sua escolha: "
+    hFlush stdout -- função para garantir que o as entradas e as saídas ocorram corretamente
+    escolha <- getLine
+    case escolha of
+        "1" ->do
+            putStrLn "Quantas rodadas deseja simular?"
+            n <- readLn :: IO Int
             simular n
-            mainLoop  -- Recursivamente chama o loop novamente
+            menu
+        "2"-> do 
+            putStrLn "Menu 2 ainda nao funciona"
+
+
 
 main :: IO ()
-main = mainLoop
+main = do
+    putStrLn "Bem vindo so simulador de Monty Hall"
+    menu
