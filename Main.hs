@@ -10,8 +10,8 @@ montyHall troca = do
     escolhaJogador <- randomRIO (1, 3) :: IO Int
     
     let ganhou = if troca
-                    then escolhaJogador /= premio  -- Se trocar, ganha se a escolha inicial não for a do prêmio
-                    else escolhaJogador == premio  -- Se não trocar, ganha se a escolha inicial for a do prêmio
+                    then escolhaJogador /= premio  
+                    else escolhaJogador == premio  
     return ganhou
 
 
@@ -57,8 +57,8 @@ jogoMontyHall = do
                     then head (filter (/= escolha) (filter (/= portaRevelada) portas))  
                     else escolha  
     if escolhaFinal == premio
-    then putStrLn $ "Parabéns, você ganhou o prêmio! O prêmio estava na porta" ++ show premio
-    else putStrLn $ "Que pena, você perdeu!O prêmio estava na porta" ++ show premio
+    then putStrLn $ "Parabéns, você ganhou o prêmio! O prêmio estava na porta " ++ show premio
+    else putStrLn $ "Que pena, você perdeu!O prêmio estava na porta " ++ show premio
 
 --função para executar o menu
 menu :: IO ()
