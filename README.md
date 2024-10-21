@@ -63,5 +63,25 @@ contarVitorias n troca = do
     return ((if resultado then 1 else 0) + resto)
 ~~~
 
+### Primeira versão funcional:
+
+A primeira versão funcional do projeto, apenas simulava quantas vezes o usuário sentisse necessidade mostrando quantas vezes cada estratégia(trocar ou não de porta) venceu. Aí descobri o primeiro problema, a minha lógica do contador de vitórias não tava muito correta aparentemente
+
+~~~
+-- Função que executa o loop principal
+mainLoop :: IO ()
+mainLoop = do
+    putStrLn "Quantas rodadas deseja simular? (Digite 0 para sair)"
+    n <- readLn :: IO Int
+    if n == 0
+        then putStrLn "Encerrando a simulação. Até mais!"
+        else do
+            simular n
+            mainLoop  -- Recursivamente chama o loop novamente
+main :: IO ()
+main = mainLoop
+
+~~~
+
 
   
