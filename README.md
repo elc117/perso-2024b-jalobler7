@@ -201,5 +201,50 @@ simular n = do
     putStrLn $ "Foram jogados " ++ show n ++ " jogos"
 ~~~
 A lógica que estou tentando implementar na função contarVitorias é a seguinte: ela recebe dois argumentos, um número inteiro N que representa a quantidade de partidas, e um booleano que indica o comportamento do jogador. Se o valor do booleano for True, a função contará as vitórias quando o jogador troca de porta; se for False, contará as vitórias quando o jogador não troca de porta. O objetivo é que a função incremente corretamente o contador de vitórias para cada um dos casos. No entanto, algo está errado na lógica, pois a contagem das vitórias não está sendo feita corretamente.
+
+
 ![image](https://github.com/user-attachments/assets/d3832cc1-1d53-48a4-aa8c-df7528da2354)
+
+
+### Correção do contador de vitórias
+
+Dado que eu não consegui fazer a função contaVitórias funcionar decidi trocar o metódo de soma das vitórias, fiz então o uso de função recursiva a função 'simularRodadas' recebe 3 parâmetros de tipo inteiro são eles, o caso base(que vai ser sempre zero), as vitórias com troca e as vitórias sem troca. Ele mesmo incrementa a variavél em que está guardada o número de vitórias e decrementa o número de rodadas restantes até que se chegue no caso base que é 0. 
+
+~~~
+
+montyHall :: IO (Bool, Bool)
+montyHall = do
+
+    premio <- randomRIO (1, 3) :: IO Int
+    
+    escolhaJogador <- randomRIO (1, 3) :: IO Int
+    
+    let ganhouSemTroca = escolhaJogador == premio  
+    let ganhouComTroca = escolhaJogador /= premio  
+    return (ganhouSemTroca, ganhouComTroca)
+
+simular :: Int -> IO ()
+simular n = simularRodadas n 0 0
+  where
+
+    simularRodadas :: Int -> Int -> Int -> IO ()
+    simularRodadas 0 vitoriasSemTroca vitoriasComTroca = do
+      
+        putStrLn $ "Vitórias trocando de porta: " ++ show vitoriasComTroca ++ " de " ++ show n
+        putStrLn $ "Probabilidade de ganhar trocando: " ++ show ((fromIntegral vitoriasComTroca / fromIntegral n) * 100) ++ "%"
+        putStrLn $ "Vitórias sem trocar de porta: " ++ show vitoriasSemTroca ++ " de " ++ show n
+        putStrLn $ "Probabilidade de ganhar sem trocar: " ++ show ((fromIntegral vitoriasSemTroca / fromIntegral n) * 100) ++ "%"
+        putStrLn $ "Foram jogados " ++ show n ++ " jogos"
+    simularRodadas rodadasRestantes vitoriasSemTroca vitoriasComTroca = do
+
+        (ganhouSemTroca, ganhouComTroca) <- montyHall
+        
+        let novasVitoriasSemTroca = if ganhouSemTroca then vitoriasSemTroca + 1 else vitoriasSemTroca
+        let novasVitoriasComTroca = if ganhouComTroca then vitoriasComTroca + 1 else vitoriasComTroca
+        
+        simularRodadas (rodadasRestantes - 1) novasVitoriasSemTroca novasVitoriasComTroca
+~~~
+
+
+
 
