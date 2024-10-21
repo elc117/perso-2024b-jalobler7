@@ -167,3 +167,7 @@ main = do
 ~~~
 
   
+### Mudanças simples:
+
+Aqui fiz algumas mudanças simples no código apenas pela interatividade e para testar o funcionamento correto do código
+![image](https://github.com/user-attachments/assets/7cc0e4c2-8b4c-4693-a847-b459d5a6367e)
