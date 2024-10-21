@@ -84,4 +84,30 @@ main = mainLoop
 ~~~
 
 
+### Começo da implementação do menu
+
+Então fiz a primeira versão do menu onde já era possível selecionar 2 opções apesar de uma ainda não fazer nada.
+
+
+~~~
+--função para executar o menu
+menu :: IO ()
+menu = do
+    putStrLn "Escolha uma opção:"
+    putStrLn "1. Simular quantas rodadas quiser"
+    putStrLn "2. Jogar o jogo das 3 portas"
+    putStr "Digite sua escolha: "
+    hFlush stdout -- função para garantir que o as entradas e as saídas ocorram corretamente
+    escolha <- getLine
+    case escolha of
+        "1" ->do
+            putStrLn "Quantas rodadas deseja simular?"
+            n <- readLn :: IO Int
+            simular n
+            menu
+        "2"-> do 
+            putStrLn "Menu 2 ainda nao funciona"
+
+~~~
+
   
