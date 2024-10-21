@@ -171,3 +171,35 @@ main = do
 
 Aqui fiz algumas mudanças simples no código apenas pela interatividade e para testar o funcionamento correto do código
 ![image](https://github.com/user-attachments/assets/7cc0e4c2-8b4c-4693-a847-b459d5a6367e)
+
+### Função ContaVitorias
+
+A função que mais me deu dor de cabeça até aqui, a ideia era fazer uma função auxiliar que contasse as vitórias em cada metódo porém a lógica não está funcionando
+
+~~~
+-- Função auxiliar para contar vitórias
+contarVitorias :: Int -> Bool -> IO Int
+contarVitorias 0 _ = return 0
+contarVitorias n troca = do
+    resultado <- montyHall troca
+    resto <- contarVitorias (n - 1) troca
+    return ((if resultado then 1 else 0) + resto)
+
+-- Função para simular as rodadas e gerar estatísticas
+simular :: Int -> IO ()
+simular n = do
+    -- Simular quando o jogador troca de porta
+    vitoriasTroca <- contarVitorias n True
+    putStrLn $ "Vitórias trocando de porta: " ++ show vitoriasTroca ++ " de " ++ show n
+    putStrLn $ "Probabilidade de ganhar trocando: " ++ show ((fromIntegral vitoriasTroca / fromIntegral n) * 100) ++ "%"
+
+    -- Simular quando o jogador não troca de porta
+    vitoriasSemTroca <- contarVitorias n False
+    putStrLn $ "Vitórias sem trocar de porta: " ++ show vitoriasSemTroca ++ " de " ++ show n
+    putStrLn $ "Probabilidade de ganhar sem trocar: " ++ show ((fromIntegral vitoriasSemTroca / fromIntegral n) * 100) ++ "%"
+
+    putStrLn $ "Foram jogados " ++ show n ++ " jogos"
+~~~
+A lógica que estou tentando implementar na função contarVitorias é a seguinte: ela recebe dois argumentos, um número inteiro N que representa a quantidade de partidas, e um booleano que indica o comportamento do jogador. Se o valor do booleano for True, a função contará as vitórias quando o jogador troca de porta; se for False, contará as vitórias quando o jogador não troca de porta. O objetivo é que a função incremente corretamente o contador de vitórias para cada um dos casos. No entanto, algo está errado na lógica, pois a contagem das vitórias não está sendo feita corretamente.
+![image](https://github.com/user-attachments/assets/d3832cc1-1d53-48a4-aa8c-df7528da2354)
+
