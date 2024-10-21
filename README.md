@@ -86,7 +86,7 @@ main = mainLoop
 
 ### Começo da implementação do menu
 
-Então fiz a primeira versão do menu onde já era possível selecionar 2 opções apesar de uma ainda não fazer nada.
+Então fiz a primeira versão do menu onde já era possível selecionar 2 opções apesar de uma ainda não fazer nada. Ah e descobri um problema da linguagem que existe na leitura das entradas que eu estava tendo rodando o código via terminal. Importei uma biblioteca chamada `System.IO (hFlush, stdout)` que visa terminar com esse problema.
 
 
 ~~~
