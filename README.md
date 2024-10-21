@@ -33,5 +33,35 @@ montyHall troca = do
   ~~~
 
 
+### Adcionando algumas funcionalidades:
+
+Após isso adcionei então o que seria a função que definiria quantas vezes seria simulado o jogo e o contador de vitória para cada cenário
+
+
+~~~
+simular :: Int -> IO ()
+simular n = do
+    -- Simular quando o jogador troca de porta
+    vitoriasTroca <- contarVitorias n True
+    putStrLn $ "Vitorias trocando de porta: " ++ show vitoriasTroca ++ " de " ++ show n
+    putStrLn $ "Probabilidade de ganhar trocando: " ++ show ((fromIntegral vitoriasTroca / fromIntegral n) * 100) ++ "%"
+    -- Simular quando o jogador não troca de porta
+    vitoriasSemTroca <- contarVitorias n False
+    putStrLn $ "Vitorias sem trocar de porta: " ++ show vitoriasSemTroca ++ " de " ++ show n
+    putStrLn $ "Probabilidade de ganhar sem trocar: " ++ show ((fromIntegral vitoriasSemTroca / fromIntegral n) * 100) ++ "%"
+
+
+
+-- Função auxiliar para contar vitórias
+
+
+contarVitorias :: Int -> Bool -> IO Int
+contarVitorias 0 _ = return 0
+contarVitorias n troca = do
+    resultado <- montyHall troca
+    resto <- contarVitorias (n - 1) troca
+    return ((if resultado then 1 else 0) + resto)
+~~~
+
 
   
