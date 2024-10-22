@@ -13,29 +13,6 @@ montyHall = do
     let ganhouComTroca = escolhaJogador /= premio  
     return (ganhouSemTroca, ganhouComTroca)
 
--- -- Função auxiliar para contar vitórias
--- contarVitorias :: Int -> Bool -> IO Int
--- contarVitorias 0 _ = return 0
--- contarVitorias n troca = do
---     resultado <- montyHall troca
---     resto <- contarVitorias (n - 1) troca
---     return ((if resultado then 1 else 0) + resto)
-
--- Função para simular as rodadas e gerar estatísticas
--- simular :: Int -> IO ()
--- simular n = do
---     -- Simular quando o jogador troca de porta
---     vitoriasTroca <- contarVitorias n True
---     putStrLn $ "Vitórias trocando de porta: " ++ show vitoriasTroca ++ " de " ++ show n
---     putStrLn $ "Probabilidade de ganhar trocando: " ++ show ((fromIntegral vitoriasTroca / fromIntegral n) * 100) ++ "%"
-
---     -- Simular quando o jogador não troca de porta
---     vitoriasSemTroca <- contarVitorias n False
---     putStrLn $ "Vitórias sem trocar de porta: " ++ show vitoriasSemTroca ++ " de " ++ show n
---     putStrLn $ "Probabilidade de ganhar sem trocar: " ++ show ((fromIntegral vitoriasSemTroca / fromIntegral n) * 100) ++ "%"
-
---     putStrLn $ "Foram jogados " ++ show n ++ " jogos"
-
 simular :: Int -> IO ()
 simular n = simularRodadas n 0 0
   where
@@ -84,6 +61,8 @@ menu = do
     putStrLn "Escolha uma opção:"
     putStrLn "1. Simular quantas rodadas quiser"
     putStrLn "2. Jogar o jogo das 3 portas"
+    putStrLn "3. Como funciopna o jogo das 3 portas"
+    putStrLn "0. Digite 0 para sair"
     putStr "Digite sua escolha: "
     hFlush stdout
     escolha <- getLine
@@ -94,9 +73,15 @@ menu = do
             simular n
             menu
         "2" -> do 
-            putStrLn "O jogo das 3 portas de Monty Hall envolve um participante escolhendo uma entre três portas, onde apenas uma esconde um prêmio e as outras duas não possuem prêmios. Após a escolha inicial, o apresentador revela uma das portas não escolhidas onde não há prêmio e oferece a chance de trocar de porta."
             jogoMontyHall
             menu
+        "3" -> do 
+            putStrLn "O jogo das 3 portas de Monty Hall envolve um participante escolhendo uma entre três portas, onde apenas uma esconde um prêmio e as outras duas não possuem prêmios. Após a escolha inicial, o apresentador revela uma das portas não escolhidas onde não há prêmio e oferece a chance de trocar de porta."
+            putStrLn "Onde está o paradoxo?"
+            putStrLn "O paradoxo está no fato de que, contra a intuição de muitos, trocar de porta aumenta a probabilidade de ganhar de 1/3 para 2/3, pois a porta original tem apenas 1/3 de chance de conter o prêmio, enquanto a outra porta restante concentra 2/3 de chance após a revelação da porta vazia. O meu código visa possibilitar ao usuário jogar o jogo das 3 portas e também simular quantas vezes quiser o cenário do jogo, de modo que o programa mostre qual foram os resultados trocando ou não de porta."
+            menu
+        "0" -> do 
+            putStrLn "Obrigado por jogar"
 
 main :: IO ()
 main = do

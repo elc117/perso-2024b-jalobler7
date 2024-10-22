@@ -245,6 +245,36 @@ simular n = simularRodadas n 0 0
         simularRodadas (rodadasRestantes - 1) novasVitoriasSemTroca novasVitoriasComTroca
 ~~~
 
+### Implementação da parte 3(Menu de ajuda)
+
+Por sugestão de amigos, me pareceu boa ideia inserir um menu de ajuda que explicasse o jogo e o paradoxo de Monty Hall. De modo bem simples apenas para dar uma visão geral para quem não conhece o jogo. E também implementei um botão de saída.
+
+~~~
+
+ putStrLn "3. Como funciopna o jogo das 3 portas"
+    putStrLn "0. Digite 0 para sair"
+    putStr "Digite sua escolha: "
+    hFlush stdout
+    escolha <- getLine
+    case escolha of
+        "1" -> do
+            putStrLn "Quantas rodadas deseja simular?"
+            n <- readLn :: IO Int
+            simular n
+            menu
+        "2" -> do 
+            jogoMontyHall
+            menu
+        "3" -> do 
+            putStrLn "O jogo das 3 portas de Monty Hall envolve um participante escolhendo uma entre três portas, onde apenas uma esconde um prêmio e as outras duas não possuem prêmios. Após a escolha inicial, o apresentador revela uma das portas não escolhidas onde não há prêmio e oferece a chance de trocar de porta."
+            putStrLn "Onde está o paradoxo?"
+            putStrLn "O paradoxo está no fato de que, contra a intuição de muitos, trocar de porta aumenta a probabilidade de ganhar de 1/3 para 2/3, pois a porta original tem apenas 1/3 de chance de conter o prêmio, enquanto a outra porta restante concentra 2/3 de chance após a revelação da porta vazia. O meu código visa possibilitar ao usuário jogar o jogo das 3 portas e também simular quantas vezes quiser o cenário do jogo, de modo que o programa mostre qual foram os resultados trocando ou não de porta."
+            menu
+        "0" -> do 
+            putStrLn "Obrigado por jogar"
+
+~~~
+
 
 
 
