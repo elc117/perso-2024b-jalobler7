@@ -310,6 +310,20 @@ jogoMontyHall = do
 
 ~~~
 
+### Considerações finais 
+
+Trabalhar com paradoxos e temas desse tipo foi uma experiência que me agradou bastante, especialmente ao ter a liberdade de escolher o tema para o projeto. Enfrentei algumas dificuldades ao lidar com uma linguagem nova, o que sempre traz o desafio de compreender a sintaxe e os conceitos fundamentais. Um dos maiores desafios que encontrei foi na parte lógica do programa, particularmente ao desenvolver a função de contar vitórias, que exigiu um esforço maior para ser implementada corretamente.
+
+
+#### Fontes
+
+* https://stackoverflow.com/search?q=empty+do+haskell&s=59d90386-fae2-4bd0-98ca-999a3a0e26b6&s=f7e85cea-d053-44a2-8b9d-5b1c6dda4728
+* https://pt.wikibooks.org/wiki/Haskell/Casamento_de_padr%C3%B5es,_if_e_let
+* https://haskell.tailorfontela.com.br/syntax-in-functions
+* https://gizmodo.uol.com.br/paradoxo-monty-hall/
+
+
+
 
 
 
