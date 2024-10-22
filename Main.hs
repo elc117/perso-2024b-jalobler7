@@ -25,6 +25,7 @@ simular n = simularRodadas n 0 0
         putStrLn $ "Vitórias sem trocar de porta: " ++ show vitoriasSemTroca ++ " de " ++ show n
         putStrLn $ "Probabilidade de ganhar sem trocar: " ++ show ((fromIntegral vitoriasSemTroca / fromIntegral n) * 100) ++ "%"
         putStrLn $ "Foram jogados " ++ show n ++ " jogos"
+
     simularRodadas rodadasRestantes vitoriasSemTroca vitoriasComTroca = do
 
         (ganhouSemTroca, ganhouComTroca) <- montyHall
@@ -37,7 +38,7 @@ simular n = simularRodadas n 0 0
 jogoMontyHall :: IO ()
 jogoMontyHall = do
     premio <- randomRIO (1, 3) :: IO Int
-    putStrLn $ "A resposta tá na porta: " ++ show premio
+    --putStrLn $ "A resposta tá na porta: " ++ show premio
     putStrLn "Digite sua escolha: (Porta 1/2/3)"
     hFlush stdout
     escolhaJogador <- getLine
@@ -45,23 +46,28 @@ jogoMontyHall = do
     let portas = [1, 2, 3]
     let portasDisponiveis = filter (\x -> x /= escolha && x /= premio) portas
     let portaRevelada = head portasDisponiveis
-    putStrLn $ "Não tem nenhum prêmio atrás dessa porta: " ++ show portaRevelada
+    putStrLn $ "Na porta " ++ show portaRevelada ++ " não tem nenhum prêmio"
     putStrLn "Deseja trocar de porta? (sim/nao)"
     hFlush stdout
     resposta <- getLine
-    let escolhaFinal = if resposta == "sim"
+    if resposta /= "sim" && resposta /= "nao" 
+        then do
+            putStrLn "A resposta deve ser 'sim' ou 'nao'" 
+            jogoMontyHall
+    else do
+        let escolhaFinal = if resposta == "sim"
                     then head (filter (/= escolha) (filter (/= portaRevelada) portas))  
                     else escolha  
-    if escolhaFinal == premio
-    then putStrLn $ "Parabéns, você ganhou o prêmio! O prêmio estava na porta " ++ show premio
-    else putStrLn $ "Que pena, você perdeu! O prêmio estava na porta " ++ show premio
+        if escolhaFinal == premio
+        then putStrLn $ "Parabéns, você ganhou o prêmio! O prêmio estava na porta " ++ show premio
+        else putStrLn $ "Que pena, você perdeu! O prêmio estava na porta " ++ show premio
 
 menu :: IO ()
 menu = do
     putStrLn "Escolha uma opção:"
     putStrLn "1. Simular quantas rodadas quiser"
     putStrLn "2. Jogar o jogo das 3 portas"
-    putStrLn "3. Como funciopna o jogo das 3 portas"
+    putStrLn "3. Como funciona o jogo das 3 portas"
     putStrLn "0. Digite 0 para sair"
     putStr "Digite sua escolha: "
     hFlush stdout

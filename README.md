@@ -275,6 +275,41 @@ Por sugestão de amigos, me pareceu boa ideia inserir um menu de ajuda que expli
 
 ~~~
 
+### Implementação de verificação se a resposta foi sim ou não
+
+Um verificador para garantir que o jogo só funcione quando o usuário coloque "sim" ou "nao" foi adcionado
+
+~~~
+
+jogoMontyHall :: IO ()
+jogoMontyHall = do
+    premio <- randomRIO (1, 3) :: IO Int
+    --putStrLn $ "A resposta tá na porta: " ++ show premio
+    putStrLn "Digite sua escolha: (Porta 1/2/3)"
+    hFlush stdout
+    escolhaJogador <- getLine
+    let escolha = read escolhaJogador :: Int
+    let portas = [1, 2, 3]
+    let portasDisponiveis = filter (\x -> x /= escolha && x /= premio) portas
+    let portaRevelada = head portasDisponiveis
+    putStrLn $ "Na porta " ++ show portaRevelada ++ " não tem nenhum prêmio"
+    putStrLn "Deseja trocar de porta? (sim/nao)"
+    hFlush stdout
+    resposta <- getLine
+    if resposta /= "sim" && resposta /= "nao" 
+        then do
+            putStrLn "A resposta deve ser 'sim' ou 'nao'" 
+            jogoMontyHall
+    else do
+        let escolhaFinal = if resposta == "sim"
+                    then head (filter (/= escolha) (filter (/= portaRevelada) portas))  
+                    else escolha  
+        if escolhaFinal == premio
+        then putStrLn $ "Parabéns, você ganhou o prêmio! O prêmio estava na porta " ++ show premio
+        else putStrLn $ "Que pena, você perdeu! O prêmio estava na porta " ++ show premio
+
+~~~
+
 
 
 
