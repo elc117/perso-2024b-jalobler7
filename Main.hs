@@ -39,7 +39,7 @@ jogoMontyHall :: IO ()
 jogoMontyHall = do
     premio <- randomRIO (1, 3) :: IO Int
     --putStrLn $ "A resposta tá na porta: " ++ show premio
-    putStrLn "Digite sua escolha: (Porta 1/2/3)"
+    putStrLn "Digite qual porta você deseja abrir: (Porta 1/2/3)"
     hFlush stdout
     escolhaJogador <- getLine
     let escolha = read escolhaJogador :: Int
