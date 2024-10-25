@@ -7,6 +7,10 @@ O problema de Monty Hall é um famoso paradoxo de probabilidade baseado em um jo
 O paradoxo está no fato de que, contra a intuição de muitos, trocar de porta aumenta a probabilidade de ganhar de 1/3 para 2/3, pois a porta original tem apenas 1/3 de chance de conter o prêmio, enquanto a outra porta restante concentra 2/3 de chance após a revelação da porta vazia.
 O meu código visa possibilitar ao usuário jogar o jogo das 3 portas e também simular quantas vezes quiser o cenário do jogo, de modo que o programa mostre qual foram os resultados trocando ou não de porta.
 
+### Link para vídeo do resultado final:
+
+https://youtu.be/hb3NnHKdrR0
+
 
 ### Fase inicial: 
 
